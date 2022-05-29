@@ -4,10 +4,10 @@
     "logo": "logo.png",
     "features": [
         {
-            "code": "url",
-            "explain": "Plugin Template",
+            "code": "链接",
+            "explain": "加载链接",
             "cmds": [
-                "url"
+                "链接"
             ]
         }
     ]

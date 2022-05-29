@@ -109,5 +109,13 @@ window._plugin = {
 
     getList() {
         return urls
+    },
+
+    getConfigPath() {
+        return dbPath
+    },
+
+    showPath(path) {
+        utools.shellShowItemInFolder(path)
     }
 }
