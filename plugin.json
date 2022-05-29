@@ -1,0 +1,14 @@
+{
+    "main": "./dist/index.html",
+    "preload": "./dist/main.js",
+    "logo": "logo.png",
+    "features": [
+        {
+            "code": "url",
+            "explain": "Plugin Template",
+            "cmds": [
+                "url"
+            ]
+        }
+    ]
+}
