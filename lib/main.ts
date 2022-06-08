@@ -1,17 +1,13 @@
-import { uid } from 'uid'
 const md5 = require('md5')
 const fs = require('fs')
 // import fs from 'fs'
 // console.log('Node version is: ' + process.version);
 // console.log('version', process.versions)
-console.log('fs', fs, fs.readFileSync)
+
+const dbPath = '/Users/yunser/data/url/data.json'
 const code_prefix = 'open-in-browser5-'
 
 const features = utools.getFeatures()
-
-// console.log('features', features)
-
-const dbPath = '/Users/yunser/data/url/data.json'
 
 const demo_urls = [
     {
@@ -68,39 +64,35 @@ async function main() {
         if (!feature.code.includes(code_prefix)) {
             utools.removeFeature(feature.code)
         }
+        const isInUrls = !!urls.find(item => code_prefix + item.id == feature.code)
+        if (!isInUrls) {
+            utools.removeFeature(feature.code)
+        }
     }
     
     const features2 = utools.getFeatures()
     
-    console.log('features2', features2)
+    // console.log('features2', features2)
     
     utools.onPluginEnter(({ code, type, payload }) => {
-        console.log('用户进入插件', code, type, payload)
-        if (code.includes(code_prefix)) {
+        console.log('用户进入插件5', code, type, payload)
+        if (code == '链接编辑') {
+            window.utools.hideMainWindow()
+            window.utools.outPlugin()
+            // Note: If you are using VS Code Insiders builds, the URL prefix is vscode-insiders://.
+            utools.shellOpenExternal(`vscode://file${dbPath}`)
+        }
+        else if (code.includes(code_prefix)) {
             const item = urls.find(u => code_prefix + u.id == code)
             if (item) {
                 console.log('找到', item)
                 utools.shellOpenExternal(item.url)
-                                window.utools.hideMainWindow()
-                    // utools.showNotification('hello')
-                    window.utools.outPlugin()
+                // utools.showNotification('hello')
+                window.utools.hideMainWindow()
+                window.utools.outPlugin()
             }
         }
     })
-    
-    // window.exports = {
-    //     'open-in-browser': {
-    //         mode: 'none',
-    //         args: {
-    //             enter: (action) => {
-    //                 console.log('action', action)
-    //                 // window.utools.hideMainWindow()
-    //                 // utools.showNotification('hello')
-    //                 // window.utools.outPlugin()
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 main()
